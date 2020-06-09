@@ -1,0 +1,30 @@
+/*package whatever //do not write package name here */
+
+import java.io.*;
+import java.util.*;
+
+ public class GFG {
+	public static void main (String[] args) {
+// 		System.out.println("GfG!");
+        
+        Scanner scn= new Scanner(System.in);
+        int n= scn.nextInt();
+        int l= scn.nextInt();
+        int[] arr= new int[n];
+        for(int i=0; i<n; i++) arr[i]= scn.nextInt();
+        
+        Arrays.sort(arr);
+        double max= arr[0];
+        
+        for(int i=1; i<arr.length; i++){
+            double temp= (arr[i]- arr[i-1])/2.0;
+            if(temp>max) max= temp; 
+        }
+        
+        if(arr[n-1]!=l){
+            max= Math.max(max, l-arr[n-1] );
+        }
+        
+        System.out.println(max);
+	}
+}
