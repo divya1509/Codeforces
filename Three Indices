@@ -1,0 +1,62 @@
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef {
+    private static void solve(int[] arr, int n) {
+        int[] nsel = new int[n];
+        int[] nser = new int[n];
+        
+        Stack<Integer> s = new Stack<>();
+        
+        for(int i = 0; i < n; i++) {
+            while(s.size() > 0 && arr[s.peek()] >= arr[i]) {
+                s.pop();
+            }
+            if(s.size() == 0) nsel[i] = -1;
+            else nsel[i] = s.peek();
+            s.push(i);
+        }
+        
+        while(s.size() > 0) s.pop();
+        
+        for(int i = n - 1; i >= 0; i--) {
+            while(s.size() > 0 && arr[s.peek()] >= arr[i]) {
+                s.pop();
+            }
+            if(s.size() == 0) nser[i] = -1;
+            else nser[i] = s.peek();
+            s.push(i);
+        }
+        
+        for(int i = 0; i < n; i++) {
+            if(nsel[i] != -1 && nser[i] != -1) {
+                System.out.println("YES");
+                int l = nsel[i] + 1;
+                int o = i + 1;
+                int r = nser[i] + 1;
+                System.out.println(l + " " + o + " " + r);
+                return;
+            }
+        }
+        System.out.println("NO");
+    } 
+    
+	public static void main (String[] args) throws java.lang.Exception {
+		// your code goes here
+		Scanner scn = new Scanner(System.in);
+		int t = scn.nextInt();
+		while (t-- > 0) {
+		    int n = scn.nextInt();
+		    int[] arr = new int[n];
+		    
+		    for(int i = 0; i < n; i++) arr[i] = scn.nextInt();
+		    
+		    solve(arr, n);
+		}
+		
+	}
+}
